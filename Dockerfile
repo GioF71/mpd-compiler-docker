@@ -77,9 +77,11 @@ RUN apt-get -y install libchromaprint-dev
 RUN apt-get -y install libgcrypt20-dev
 RUN apt-get -y install git
 
+ARG USE_GIT_BRANCH
+
 RUN mkdir /source
 WORKDIR /source
-RUN git clone https://github.com/GioF71/MPD.git
+RUN git clone https://github.com/GioF71/MPD.git --depth 1 --branch ${USE_GIT_BRANCH}
 WORKDIR /source/MPD
 RUN meson . output/release --buildtype=debugoptimized -Db_ndebug=true
 RUN meson configure output/release

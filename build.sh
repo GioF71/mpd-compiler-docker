@@ -17,22 +17,26 @@ base_images[bionic]=ubuntu:bionic
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
+DEFAULT_VERSION=master
 
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
 tag=$DEFAULT_TAG
+git_branch="$DEFAULT_GIT_VERSION"
 
-while getopts b:t:p: flag
+while getopts b:t:p:g: flag
 do
     case "${flag}" in
         b) base_image=${OPTARG};;
         t) tag=${OPTARG};;
         p) proxy=${OPTARG};;
+        g) git_branch=${OPTARG};;
     esac
 done
 
 echo "base_image: $base_image";
 echo "tag: $tag";
 echo "proxy: [$proxy]";
+echo "git_branch: [$git_branch]";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE
@@ -47,6 +51,7 @@ fi
 if [ -z "${proxy}" ]; then
   proxy="N"
 fi
+
 if [[ "${proxy}" == "Y" || "${proxy}" == "y" ]]; then  
   proxy="Y"
 elif [[ "${proxy}" == "N" || "${proxy}" == "n" ]]; then  
@@ -56,6 +61,10 @@ else
   exit 3
 fi
 
+if [ -z "${git_branch}" ]; then
+  git_branch="${DEFAULT_GIT_VERSION}"
+fi
+
 echo "Base Image: ["$expanded_base_image"]"
 echo "Tag: ["$tag"]"
 echo "Proxy: ["$proxy"]"
@@ -63,4 +72,5 @@ echo "Proxy: ["$proxy"]"
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg USE_APT_PROXY=${proxy} \
+    --build-arg USE_GIT_BRANCH=${git_branch} \
     -t giof71/mpd-compiler:$tag

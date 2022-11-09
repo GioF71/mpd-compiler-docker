@@ -33,6 +33,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           distro_id=${{ matrix.base }}
+          git_branch=${{ matrix.git_branch }}
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
           declare -A base_image_from_matrix
@@ -86,7 +87,7 @@ jobs:
               echo "Building now: ["$distro_id"]";
               tags="${tags},$image_name:${distro_id}";
               tags="${tags},$image_name:${distro_id}-${mpd_version}-${git_branch}"
-              tags="$tags,$image_name:${distro_id}-${mpd_version}-${git_branch}-${tag_name}"              
+              tags="$tags,$image_name:${distro_id}-${mpd_version}-${git_branch}-${tag_name}"
               select_special_tags=${special_tags["${distro_id}"]};
               if [[ -n "${select_special_tags}" ]]; then
                 echo "Found special tags for ["${distro_id}"]=["${select_special_tags}"]";

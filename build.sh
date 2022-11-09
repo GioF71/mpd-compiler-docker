@@ -17,7 +17,7 @@ base_images[bionic]=ubuntu:bionic
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
-DEFAULT_VERSION=master
+DEFAULT_GIT_VERSION=master
 
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
 tag=$DEFAULT_TAG
@@ -68,6 +68,7 @@ fi
 echo "Base Image: ["$expanded_base_image"]"
 echo "Tag: ["$tag"]"
 echo "Proxy: ["$proxy"]"
+echo "Git Branch: ["$git_branch"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \

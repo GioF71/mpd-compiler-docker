@@ -77,7 +77,7 @@ RUN apt-get -y install libchromaprint-dev
 RUN apt-get -y install libgcrypt20-dev
 RUN apt-get -y install git
 
-ARG USE_GIT_BRANCH
+ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x-ups}"
 
 RUN mkdir /source
 WORKDIR /source
@@ -86,3 +86,4 @@ WORKDIR /source/MPD
 RUN meson . output/release --buildtype=debugoptimized -Db_ndebug=true
 RUN meson configure output/release
 RUN ninja -C output/release
+RUN ninja -C output/release install

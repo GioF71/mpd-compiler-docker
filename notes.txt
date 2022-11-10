@@ -1,0 +1,4 @@
+docker build --load \
+    --platform linux/amd64 \
+    --build-arg USE_APT_PROXY=Y \
+    --tag giof71/mpd-compiler:local .

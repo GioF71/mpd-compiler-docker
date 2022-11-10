@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         base: ["bullseye"]
-        git_branch: ["master-ups", "v0.23.x-ups"]
+        git_branch: ["v0.23.x-ups"]
 
     steps:
       - name: Checkout

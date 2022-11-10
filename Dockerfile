@@ -77,13 +77,18 @@ RUN apt-get -y install libchromaprint-dev
 RUN apt-get -y install libgcrypt20-dev
 RUN apt-get -y install git
 
-ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x-ups}"
+ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
 
 RUN mkdir /source
 WORKDIR /source
-RUN git clone https://github.com/GioF71/MPD.git --depth 1 --branch ${USE_GIT_BRANCH}
+RUN git clone https://github.com/GioF71/MPD.git --branch ${USE_GIT_BRANCH}
 WORKDIR /source/MPD
 RUN meson . output/release --buildtype=debugoptimized -Db_ndebug=true
 RUN meson configure output/release
 RUN ninja -C output/release
-RUN ninja -C output/release install
+RUN mkdir /app/bin
+RUN cp /source/MPD/output/release/mpd /app/bin/mpd
+RUN git checkout ${USE_GIT_BRANCH}-ups
+RUN ninja -C output/release
+RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
+

@@ -45,6 +45,15 @@ jobs:
           base_image_from_matrix[jammy]=ubuntu:jammy
           base_image_from_matrix[kinetic]=ubuntu:kinetic
 
+          declare -A base_tags
+          base_tags[bookworm]=bookworm-slim
+          base_tags[buster]=buster-slim
+          base_tags[bullseye]=bullseye-slim
+          base_tags[bionic]=bionic
+          base_tags[focal]=focal
+          base_tags[jammy]=jammy
+          base_tags[kinetic]=kinetic
+
           declare -A mpd_versions
           mpd_versions[master]=0.23.10
           mpd_versions[v0.23.x]=0.23.10
@@ -60,6 +69,7 @@ jobs:
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${{ matrix.git_branch }}]}
+          base_image_tag=${base_tags[${{ matrix.base }}]}
 
           tags=""
           if [ "${ref_type}" = "branch" ]; then
@@ -86,7 +96,7 @@ jobs:
               echo "release tag";
               echo "Building now: ["$distro_id"]";
               tags="${tags},$image_name:${distro_id}";
-              tags="${tags},$image_name:${base_image}";
+              tags="${tags},$image_name:${base_image_tag}";
               tags="${tags},$image_name:${distro_id}-${mpd_version}-${git_branch}"
               tags="$tags,$image_name:${distro_id}-${mpd_version}-${git_branch}-${tag_name}"
               select_special_tags=${special_tags["${distro_id}"]};
@@ -108,7 +118,6 @@ jobs:
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build";
               tags="${tags},${image_name}:daily-${distro_id}";
-              tags="${tags},$image_name:daily-${base_image}";
               tags="${tags},${image_name}:daily-${distro_id}-${mpd_version}-${git_branch}";
             fi
           fi

@@ -17,6 +17,7 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     fi
 
 RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 RUN apt-get -y install meson
 RUN apt-get -y install g++
 RUN apt-get -y install libfmt-dev
@@ -91,4 +92,35 @@ RUN cp /source/MPD/output/release/mpd /app/bin/mpd
 RUN git checkout ${USE_GIT_BRANCH}-ups
 RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
+
+ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
+FROM ${BASE_IMAGE}
+
+RUN mkdir -p /app/conf
+
+COPY app/conf/01-apt-proxy /app/conf/
+
+RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
+
+RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
+    echo "Builind using apt proxy"; \
+    cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
+    cat /etc/apt/apt.conf.d/01-apt-proxy; \
+    else \
+    echo "Building without apt proxy"; \
+    fi
+
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+RUN apt-get -y --no-install pulseaudio
+RUN apt-get -y --no-install libasound2
+
+RUN mkdir /app/bin/compiled -p
+
+COPY --from=BASE /app/bin/mpd* /app/bin/compiled/
+
+LABEL maintainer="GioF71"
+LABEL source="https://github.com/GioF71/mpd-compiler-docker"
+
+ENTRYPOINT [ "/bin/bash" ]
 

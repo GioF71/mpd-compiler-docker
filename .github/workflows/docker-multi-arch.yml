@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye"]
+        base: ["bullseye", "jammy"]
         git_branch: ["v0.23.x"]
 
     steps:
@@ -86,6 +86,7 @@ jobs:
               echo "release tag";
               echo "Building now: ["$distro_id"]";
               tags="${tags},$image_name:${distro_id}";
+              tags="${tags},$image_name:${base_image}";
               tags="${tags},$image_name:${distro_id}-${mpd_version}-${git_branch}"
               tags="$tags,$image_name:${distro_id}-${mpd_version}-${git_branch}-${tag_name}"
               select_special_tags=${special_tags["${distro_id}"]};
@@ -107,6 +108,7 @@ jobs:
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build";
               tags="${tags},${image_name}:daily-${distro_id}";
+              tags="${tags},$image_name:daily-${base_image}";
               tags="${tags},${image_name}:daily-${distro_id}-${mpd_version}-${git_branch}";
             fi
           fi

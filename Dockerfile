@@ -94,7 +94,7 @@ RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
 ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS INTERMEDIATE
 
 RUN mkdir -p /app/conf
 
@@ -112,15 +112,18 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-RUN apt-get -y install --no-install-recommends pulseaudio
-RUN apt-get -y install --no-install-recommends libasound2
+RUN apt-get -y install --no-install-recommends alsa-utils
+RUN apt-get -y install --no-install-recommends pulseaudio-utils
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app/bin/compiled -p
 
 COPY --from=BASE /app/bin/mpd* /app/bin/compiled/
 
+FROM scratch
+COPY --from=INTERMEDIATE / /
+
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/mpd-compiler-docker"
 
 ENTRYPOINT [ "/bin/bash" ]
-

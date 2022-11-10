@@ -16,7 +16,6 @@ jobs:
       fail-fast: false
       matrix:
         base: ["bullseye", "jammy"]
-        git_branch: ["v0.23.x"]
 
     steps:
       - name: Checkout
@@ -33,7 +32,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           distro_id=${{ matrix.base }}
-          git_branch=${{ matrix.git_branch }}
+          git_branch="v0.23.x"
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
           declare -A base_image_from_matrix
@@ -45,14 +44,14 @@ jobs:
           base_image_from_matrix[jammy]=ubuntu:jammy
           base_image_from_matrix[kinetic]=ubuntu:kinetic
 
-          declare -A base_tags
-          base_tags[bookworm]=bookworm-slim
-          base_tags[buster]=buster-slim
-          base_tags[bullseye]=bullseye-slim
-          base_tags[bionic]=bionic
-          base_tags[focal]=focal
-          base_tags[jammy]=jammy
-          base_tags[kinetic]=kinetic
+          declare -A base_tag_from_matrix
+          base_tag_from_matrix[bookworm]=bookworm-slim
+          base_tag_from_matrix[buster]=buster-slim
+          base_tag_from_matrix[bullseye]=bullseye-slim
+          base_tag_from_matrix[bionic]=bionic
+          base_tag_from_matrix[focal]=focal
+          base_tag_from_matrix[jammy]=jammy
+          base_tag_from_matrix[kinetic]=kinetic
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.10
@@ -68,57 +67,57 @@ jobs:
           special_tags[kinetic]="${image_name}:ubuntu-current"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
-          mpd_version=${mpd_versions[${{ matrix.git_branch }}]}
-          base_image_tag=${base_tags[${{ matrix.base }}]}
+          mpd_version=${mpd_versions[${git_branch}]}
+          base_image_tag=${base_tag_from_matrix[${{ matrix.base }}]}
 
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
-              tags="${image_name}:main-${distro_id}";
-              tags="$tags,${image_name}:main-${distro_id}-${mpd_version}";
+              tags="${image_name}:main-${distro_id}-${mpd_version}"
+              tags="${tags},${image_name}:main-${distro_id}-${mpd_version}"
             elif [ "${ref_name}" = "devel" ]; then
-              echo "devel branch";
+              echo "devel branch"
               tags="${image_name}:devel-${distro_id}-${mpd_version}"
             else
-              echo "other branch ["${ref_name}"]";
-              tags="${image_name}:branch-${ref_name}-${distro_id}-${mpd_version}";
+              echo "other branch ["${ref_name}"]"
+              tags="${image_name}:branch-${ref_name}-${distro_id}-${mpd_version}"
             fi
           elif [ "${ref_type}" = "tag" ]; then
-            echo "tag mode";
-            echo "tag is ["${ref_name}"]";
-
+            echo "tag mode"
+            echo "tag is ["${ref_name}"]"
             tag_type=$(echo ${ref_name} | cut -d '/' -f 1)
             tag_name=$(echo ${ref_name} | cut -d '/' -f 2) 
-
             if [ "${tag_type}" = "release" ]; then
-              echo "release tag";
-              echo "Building now: ["$distro_id"]";
-              tags="${tags},$image_name:${distro_id}";
-              tags="${tags},$image_name:${base_image_tag}";
-              tags="${tags},$image_name:${distro_id}-${mpd_version}-${git_branch}"
-              tags="$tags,$image_name:${distro_id}-${mpd_version}-${git_branch}-${tag_name}"
-              select_special_tags=${special_tags["${distro_id}"]};
+              echo "release tag"
+              echo "Building now: ["$distro_id"]"
+              tags="$image_name:${distro_id}"
+              if [[ -n "${base_image_tag}" ]]; then
+                tags="${tags},$image_name:${base_image_tag}"
+              fi
+              tags="${tags},$image_name:${distro_id}-${mpd_version}"
+              tags="${tags},$image_name:${distro_id}-${mpd_version}-${tag_name}"
+              select_special_tags=${special_tags["${distro_id}"]}
               if [[ -n "${select_special_tags}" ]]; then
-                echo "Found special tags for ["${distro_id}"]=["${select_special_tags}"]";
-                tags="$tags,${select_special_tags}";
+                echo "Found special tags for ["${distro_id}"]=["${select_special_tags}"]"
+                tags="${tags},${select_special_tags}"
               else
-                echo "No special tag found for ["${distro_id}"]";
+                echo "No special tag found for ["${distro_id}"]"
               fi
             elif [ "${tag_type}" = "main" ]; then
-              echo "main tag";
-              tags="${image_name}:main-${tag_name}-${distro_id}-${mpd_version}-${git_branch}";
+              echo "main tag"
+              tags="${image_name}:main-${tag_name}-${distro_id}-${mpd_version}"
             elif [ "${tag_type}" = "devel" ]; then
-              echo "devel tag";
-              tags="${image_name}:devel-${tag_name}-${distro_id}-${mpd_version}-${git_branch}";
+              echo "devel tag"
+              tags="${image_name}:devel-${tag_name}-${distro_id}-${mpd_version}"
             elif [ "${tag_type}" = "feature" ]; then
-              echo "feature tag";
-              tags="${image_name}:feature-${tag_name}-${distro_id}-${mpd_version}-${git_branch}";
+              echo "feature tag"
+              tags="${image_name}:feature-${tag_name}-${distro_id}-${mpd_version}"
             elif [ "${tag_type}" = "daily" ]; then
-              echo "daily build";
-              tags="${tags},${image_name}:daily-${distro_id}";
-              tags="${tags},${image_name}:daily-${distro_id}-${mpd_version}-${git_branch}";
+              echo "daily build"
+              tags="${image_name}:daily-${distro_id}"
+              tags="${tags},${image_name}:daily-${distro_id}-${mpd_version}"
             fi
           fi
           echo "Building tags: ["${tags}"]"

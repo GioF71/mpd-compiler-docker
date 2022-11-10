@@ -117,6 +117,9 @@ jobs:
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build"
               tags="${image_name}:daily-${distro_id}"
+              if [[ -n "${base_image_tag}" ]]; then
+                tags="${tags},$image_name:daily-${base_image_tag}"
+              fi
               tags="${tags},${image_name}:daily-${distro_id}-${mpd_version}"
             fi
           fi

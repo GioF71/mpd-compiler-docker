@@ -112,8 +112,8 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-RUN apt-get -y --no-install pulseaudio
-RUN apt-get -y --no-install libasound2
+RUN apt-get -y --no-install-recommends pulseaudio
+RUN apt-get -y --no-install-recommends libasound2
 
 RUN mkdir /app/bin/compiled -p
 

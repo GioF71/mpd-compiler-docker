@@ -3,6 +3,10 @@
 Builds mpd from source code.  
 Can be used as base for other container images.
 
+## Reference
+
+This repo creates builds for [MPD](https://musicpd.org/).
+
 ## Usage
 
 Compiled binaries are available at the directory `/app/bin`. You will find that this directory include two files, `mpd` and `mpd-ups`.  
@@ -12,4 +16,4 @@ This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-d
 
 ## Disclaimer
 
-This is not supported by the MPD project. Use this patched version at your own risk.
+This is not supported by the [MPD](https://musicpd.org/) project. Use this patched version at your own risk.

@@ -55,7 +55,7 @@ jobs:
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.12
-          mpd_versions[v0.23.x]=0.23.12
+          mpd_versions[version-0.23.12]=0.23.12
 
           declare -A special_tags
           special_tags[bullseye]="${image_name}:stable,${image_name}:latest"

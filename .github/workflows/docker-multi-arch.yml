@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye", "jammy"]
+        base: ["bullseye", "jammy", "kinetic"]
 
     steps:
       - name: Checkout

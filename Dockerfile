@@ -1,6 +1,9 @@
 ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
 FROM ${BASE_IMAGE} AS BASE
+
 ARG USE_APT_PROXY
+ARG LIBFMT_PACKAGE_NAME
+ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
 
 RUN mkdir -p /app/conf
 
@@ -18,6 +21,8 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+
+# libraries needed for building
 RUN apt-get -y install meson
 RUN apt-get -y install g++
 RUN apt-get -y install libfmt-dev
@@ -78,8 +83,6 @@ RUN apt-get -y install libchromaprint-dev
 RUN apt-get -y install libgcrypt20-dev
 RUN apt-get -y install git
 
-ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
-
 RUN mkdir /source
 WORKDIR /source
 RUN git clone https://github.com/GioF71/MPD.git --branch ${USE_GIT_BRANCH}
@@ -95,6 +98,9 @@ RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
 ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
 FROM ${BASE_IMAGE} AS INTERMEDIATE
+
+ARG USE_APT_PROXY
+ARG LIBFMT_PACKAGE_NAME
 
 RUN mkdir -p /app/conf
 
@@ -114,6 +120,17 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 RUN apt-get -y install --no-install-recommends alsa-utils
 RUN apt-get -y install --no-install-recommends pulseaudio-utils
+
+# libraries needed at runtime
+RUN apt-get install -y --no-install-recommends alsa-utils
+RUN apt-get install -y --no-install-recommends libasound2-plugin-equal
+RUN apt-get install -y --no-install-recommends pulseaudio-utils
+RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
+RUN apt-get install -y --no-install-recommends libsidplay2
+RUN apt-get install -y --no-install-recommends libsidutils0
+RUN apt-get install -y --no-install-recommends libresid-builder-dev
+RUN apt-get install -y --no-install-recommends libaudiofile-dev
+
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app/bin/compiled -p
@@ -126,4 +143,10 @@ COPY --from=INTERMEDIATE / /
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/mpd-compiler-docker"
 
+RUN echo "yes" > /app/conf/integer_upsampling_support.txt
+RUN echo "/app/bin/compiled/mpd" > /app/conf/mpd-compiled-path.txt
+RUN echo "/app/bin/compiled/mpd-ups" > /app/conf/mpd-compiled-ups-path.txt
+
+# there is not a lot to see here, this is a base image
+# so I am setting bash as the entrypoint
 ENTRYPOINT [ "/bin/bash" ]

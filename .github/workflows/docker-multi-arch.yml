@@ -70,6 +70,11 @@ jobs:
           mpd_version=${mpd_versions[${git_branch}]}
           base_image_tag=${base_tag_from_matrix[${{ matrix.base }}]}
 
+          declare -A libfmt_dict
+          libfmt_dict[bullseye]=libfmt7
+
+          select_libfmt_package_name=${libfmt_dict[${{ matrix.base }}]}
+
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
@@ -127,6 +132,7 @@ jobs:
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
           echo "BASE_IMAGE=${base_image}" >> $GITHUB_ENV
           echo "GIT_BRANCH=${git_branch}" >> $GITHUB_ENV
+          echo "LIBFMT_PACKAGE_NAME=${select_libfmt_package_name}" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -150,6 +156,7 @@ jobs:
           build-args: |
             BASE_IMAGE=${{ env.BASE_IMAGE }}
             USE_GIT_BRANCH=${{ env.GIT_BRANCH }}
+            LIBFMT_PACKAGE_NAME=${{ env.LIBFMT_PACKAGE_NAME }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true
           tags: ${{ env.RELEASE_TAGS }}

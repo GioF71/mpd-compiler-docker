@@ -14,6 +14,9 @@ base_images[kinetic]=ubuntu:kinetic
 base_images[focal]=ubuntu:focal
 base_images[bionic]=ubuntu:bionic
 
+declare -A libfmt_dict
+libfmt_dict[bullseye]=libfmt7
+
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
@@ -48,6 +51,12 @@ if [ -z "${expanded_base_image}" ]; then
   exit 2
 fi
 
+libfmt_package_name=${libfmt_dict[$base_image]}
+if [ -z "${libfmt_package_name}" ]; then
+  echo "LibFmt package table entry missing for ["${base_image}"], probably not needed"
+  #exit 2
+fi
+
 if [ -z "${proxy}" ]; then
   proxy="N"
 fi
@@ -67,6 +76,7 @@ fi
 
 echo "Base Image: ["$expanded_base_image"]"
 echo "Tag: ["$tag"]"
+echo "Package name libfmt: [$libfmt_package_name]"
 echo "Proxy: ["$proxy"]"
 echo "Git Branch: ["$git_branch"]"
 
@@ -74,4 +84,5 @@ docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg USE_APT_PROXY=${proxy} \
     --build-arg USE_GIT_BRANCH=${git_branch} \
+    --build-arg LIBFMT_PACKAGE_NAME=${libfmt_package_name} \
     -t giof71/mpd-compiler:$tag

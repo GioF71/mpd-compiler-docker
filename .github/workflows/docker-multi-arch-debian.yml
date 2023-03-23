@@ -1,4 +1,4 @@
-name: Publish multi-arch Docker images
+name: Publish multi-arch Docker debian-based images
 
 on:
   push:
@@ -39,19 +39,11 @@ jobs:
           base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
-          base_image_from_matrix[bionic]=ubuntu:bionic
-          base_image_from_matrix[focal]=ubuntu:focal
-          base_image_from_matrix[jammy]=ubuntu:jammy
-          base_image_from_matrix[kinetic]=ubuntu:kinetic
 
           declare -A base_tag_from_matrix
           base_tag_from_matrix[bookworm]=bookworm-slim
           base_tag_from_matrix[buster]=buster-slim
           base_tag_from_matrix[bullseye]=bullseye-slim
-          base_tag_from_matrix[bionic]=bionic
-          base_tag_from_matrix[focal]=focal
-          base_tag_from_matrix[jammy]=jammy
-          base_tag_from_matrix[kinetic]=kinetic
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.12
@@ -61,10 +53,6 @@ jobs:
           special_tags[bullseye]="${image_name}:stable,${image_name}:latest"
           special_tags[bookworm]="${image_name}:edge"
           special_tags[buster]="${image_name}:legacy,${image_name}:old-stable"
-          special_tags[bionic]="${image_name}:ubuntu-old-lts"
-          special_tags[focal]="${image_name}:ubuntu-previous-lts"
-          special_tags[jammy]="${image_name}:ubuntu-current-lts"
-          special_tags[kinetic]="${image_name}:ubuntu-current"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}

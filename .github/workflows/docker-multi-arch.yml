@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye", "jammy", "kinetic"]
+        base: ["bullseye", "bookworm"]
 
     steps:
       - name: Checkout
@@ -157,6 +157,6 @@ jobs:
             BASE_IMAGE=${{ env.BASE_IMAGE }}
             USE_GIT_BRANCH=${{ env.GIT_BRANCH }}
             LIBFMT_PACKAGE_NAME=${{ env.LIBFMT_PACKAGE_NAME }}
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+          platforms: linux/amd64,linux/arm/v7,linux/arm/v6,linux/arm64/v8
           push: true
           tags: ${{ env.RELEASE_TAGS }}

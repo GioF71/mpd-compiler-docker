@@ -7,6 +7,11 @@ Can be used as base for other container images.
 
 This repo creates builds for [MPD](https://musicpd.org/).
 
+## Links
+
+Source code on [GitHub](https://github.com/GioF71/mpd-compiler-docker)
+Images on [DockerHub](https://hub.docker.com/r/giof71/mpd-compiler)
+
 ## Usage
 
 Compiled binaries are available at the directory `/app/bin`. You will find that this directory include two files, `mpd` and `mpd-ups`.  

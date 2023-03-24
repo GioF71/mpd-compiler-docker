@@ -16,6 +16,8 @@ base_images[bionic]=ubuntu:bionic
 
 declare -A libfmt_dict
 libfmt_dict[bullseye]=libfmt7
+libfmt_dict[bookworm]=libfmt9
+
 
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local

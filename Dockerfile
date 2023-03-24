@@ -1,4 +1,4 @@
-ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
+ARG BASE_IMAGE="${BASE_IMAGE}"
 FROM ${BASE_IMAGE} AS BASE
 
 ARG USE_APT_PROXY
@@ -96,7 +96,7 @@ RUN git checkout ${USE_GIT_BRANCH}-ups
 RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
-ARG BASE_IMAGE="${BASE_IMAGE:-debian:bullseye-slim}"
+ARG BASE_IMAGE="${BASE_IMAGE}"
 FROM ${BASE_IMAGE} AS INTERMEDIATE
 
 ARG USE_APT_PROXY

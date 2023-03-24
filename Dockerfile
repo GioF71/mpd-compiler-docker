@@ -87,7 +87,7 @@ RUN mkdir /source
 WORKDIR /source
 RUN git clone https://github.com/GioF71/MPD.git --branch ${USE_GIT_BRANCH}
 WORKDIR /source/MPD
-RUN meson . output/release --buildtype=debugoptimized -Db_ndebug=true
+RUN meson . output/release -Ddocumentation=disabled -Dtest=false -Dsystemd=disabled -Dpcre=enabled
 RUN meson configure output/release
 RUN ninja -C output/release
 RUN mkdir /app/bin
@@ -118,13 +118,14 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-RUN apt-get -y install --no-install-recommends alsa-utils
-RUN apt-get -y install --no-install-recommends pulseaudio-utils
+
+# install upstream mpd
+RUN apt-get -y install mpd
 
 # libraries needed at runtime
-RUN apt-get install -y --no-install-recommends alsa-utils
+RUN apt-get -y install --no-install-recommends alsa-utils
+RUN apt-get -y install --no-install-recommends pulseaudio-utils
 RUN apt-get install -y --no-install-recommends libasound2-plugin-equal
-RUN apt-get install -y --no-install-recommends pulseaudio-utils
 RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
 RUN apt-get install -y --no-install-recommends libsidplay2
 RUN apt-get install -y --no-install-recommends libsidutils0

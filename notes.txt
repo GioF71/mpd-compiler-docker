@@ -1,9 +1,0 @@
-docker build --push \
-    --platform linux/arm/v7,linux/arm/v8,linux/amd64 \
-    --build-arg USE_APT_PROXY=Y \
-    --tag giof71/mpd-compiler:latest .
-
-docker build --push \
-    --platform linux/amd64 \
-    --build-arg USE_APT_PROXY=Y \
-    --tag giof71/mpd-compiler:latest .

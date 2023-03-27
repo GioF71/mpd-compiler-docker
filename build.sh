@@ -5,7 +5,6 @@
 # 3 Invalid proxy parameter
 
 declare -A base_images
-
 base_images[bookworm]=debian:bookworm-slim
 base_images[buster]=debian:buster-slim
 base_images[bullseye]=debian:bullseye-slim
@@ -14,18 +13,25 @@ base_images[kinetic]=ubuntu:kinetic
 base_images[focal]=ubuntu:focal
 base_images[bionic]=ubuntu:bionic
 
+declare -A local_tag
+local_tag[bookworm]=local-bookworm
+local_tag[buster]=local-buster
+local_tag[bullseye]=local-bullseye
+local_tag[jammy]=local-jammy
+local_tag[kinetic]=local-kinetic
+local_tag[focal]=local-focal
+local_tag[bionic]=local-bionic
+
 declare -A libfmt_dict
 libfmt_dict[bullseye]=libfmt7
 libfmt_dict[bookworm]=libfmt9
-
 
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
 DEFAULT_GIT_VERSION=version-0.23.12
 
-download=$DEFAULT_SOURCEFORGE_DOWNLOAD
-tag=$DEFAULT_TAG
+tag=""
 git_branch="$DEFAULT_GIT_VERSION"
 
 while getopts b:t:p:g: flag
@@ -53,10 +59,16 @@ if [ -z "${expanded_base_image}" ]; then
   exit 2
 fi
 
+select_tag=${local_tag[$base_image]}
+if [[ -n "$select_tag" ]]; then
+  tag=$select_tag
+else
+  tag=$DEFAULT_TAG
+fi
+
 libfmt_package_name=${libfmt_dict[$base_image]}
 if [ -z "${libfmt_package_name}" ]; then
-  echo "LibFmt package table entry missing for ["${base_image}"], probably not needed"
-  #exit 2
+  echo "Table entry for libfmt package is missing for ["${base_image}"], probably not needed, ignoring."
 fi
 
 if [ -z "${proxy}" ]; then

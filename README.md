@@ -1,6 +1,6 @@
 # mpd-compiler-docker
 
-Builds mpd from source code.  
+Builds mpd from source code, specifically [this fork of MPD](https://github.com/gioF71/MPD).  
 Can be used as base for other container images.
 
 ## Reference

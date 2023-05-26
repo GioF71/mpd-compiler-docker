@@ -29,7 +29,7 @@ libfmt_dict[bookworm]=libfmt9
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
-DEFAULT_GIT_VERSION=version-0.23.12
+DEFAULT_GIT_VERSION=version-0.23.13
 
 tag=""
 git_branch="$DEFAULT_GIT_VERSION"

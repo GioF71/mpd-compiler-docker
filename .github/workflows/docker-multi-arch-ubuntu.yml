@@ -32,7 +32,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           distro_id=${{ matrix.base }}
-          git_branch="version-0.23.12"
+          git_branch="version-0.23.13"
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
           declare -A base_image_from_matrix
@@ -48,8 +48,8 @@ jobs:
           base_tag_from_matrix[kinetic]=kinetic
 
           declare -A mpd_versions
-          mpd_versions[master]=0.23.12
-          mpd_versions[version-0.23.12]=0.23.12
+          mpd_versions[master]=0.23.13
+          mpd_versions[version-0.23.13]=0.23.13
 
           declare -A special_tags
           special_tags[bionic]="${image_name}:ubuntu-old-lts"

@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["kinetic", "jammy"]
+        base: ["lunar", "jammy"]
 
     steps:
       - name: Checkout
@@ -40,12 +40,14 @@ jobs:
           base_image_from_matrix[focal]=ubuntu:focal
           base_image_from_matrix[jammy]=ubuntu:jammy
           base_image_from_matrix[kinetic]=ubuntu:kinetic
+          base_image_from_matrix[lunar]=ubuntu:lunar
 
           declare -A base_tag_from_matrix
           base_tag_from_matrix[bionic]=bionic
           base_tag_from_matrix[focal]=focal
           base_tag_from_matrix[jammy]=jammy
           base_tag_from_matrix[kinetic]=kinetic
+          base_tag_from_matrix[lunar]=lunar
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.13
@@ -55,7 +57,7 @@ jobs:
           special_tags[bionic]="${image_name}:ubuntu-old-lts"
           special_tags[focal]="${image_name}:ubuntu-previous-lts"
           special_tags[jammy]="${image_name}:ubuntu-current-lts"
-          special_tags[kinetic]="${image_name}:ubuntu-current"
+          special_tags[lunar]="${image_name}:ubuntu-current"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}

@@ -29,4 +29,5 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2023-07-20|Apt install commands optimization (see issue [#31](https://github.com/GioF71/mpd-compiler-docker/issues/31))
 2023-07-20|Dropped `bullseye` and `jammy` builds (see issue [#29](https://github.com/GioF71/mpd-compiler-docker/issues/29))

@@ -23,65 +23,65 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 # libraries needed for building
-RUN apt-get -y install meson
-RUN apt-get -y install g++
-RUN apt-get -y install libfmt-dev
-RUN apt-get -y install libpcre2-dev
-RUN apt-get -y install libmad0-dev
-RUN apt-get -y install libmpg123-dev
-RUN apt-get -y install libid3tag0-dev
-RUN apt-get -y install libflac-dev
-RUN apt-get -y install libvorbis-dev
-RUN apt-get -y install libopus-dev
-RUN apt-get -y install libogg-dev
-RUN apt-get -y install libadplug-dev
-RUN apt-get -y install libaudiofile-dev
-RUN apt-get -y install libsndfile1-dev
-RUN apt-get -y install libfaad-dev
-RUN apt-get -y install libfluidsynth-dev
-RUN apt-get -y install libgme-dev
-RUN apt-get -y install libmikmod-dev
-RUN apt-get -y install libmodplug-dev
-RUN apt-get -y install libmpcdec-dev
-RUN apt-get -y install libwavpack-dev
-RUN apt-get -y install libwildmidi-dev
-RUN apt-get -y install libsidplay2-dev
-RUN apt-get -y install libsidutils-dev
-RUN apt-get -y install libresid-builder-dev
-RUN apt-get -y install libavcodec-dev
-RUN apt-get -y install libavformat-dev
-RUN apt-get -y install libmp3lame-dev
-RUN apt-get -y install libtwolame-dev
-RUN apt-get -y install libshine-dev
-RUN apt-get -y install libsamplerate0-dev
-RUN apt-get -y install libsoxr-dev
-RUN apt-get -y install libbz2-dev
-RUN apt-get -y install libcdio-paranoia-dev
-RUN apt-get -y install libiso9660-dev
-RUN apt-get -y install libmms-dev
-RUN apt-get -y install libzzip-dev
-RUN apt-get -y install libcurl4-gnutls-dev
-RUN apt-get -y install libyajl-dev
-RUN apt-get -y install libexpat-dev
-RUN apt-get -y install libasound2-dev
-RUN apt-get -y install libao-dev
-RUN apt-get -y install libjack-jackd2-dev
-RUN apt-get -y install libopenal-dev
-RUN apt-get -y install libpulse-dev
-RUN apt-get -y install libshout3-dev
-RUN apt-get -y install libsndio-dev
-RUN apt-get -y install libmpdclient-dev
-RUN apt-get -y install libnfs-dev
-RUN apt-get -y install libupnp-dev
-RUN apt-get -y install libavahi-client-dev
-RUN apt-get -y install libsqlite3-dev
-RUN apt-get -y install libsystemd-dev
-RUN apt-get -y install libgtest-dev
-RUN apt-get -y install libboost-dev
-RUN apt-get -y install libicu-dev
-RUN apt-get -y install libchromaprint-dev
-RUN apt-get -y install libgcrypt20-dev
-RUN apt-get -y install git
+RUN apt-get -y install meson \
+    g++ \
+    libfmt-dev \
+    libpcre2-dev \
+    libmad0-dev \
+    libmpg123-dev \
+    libid3tag0-dev \
+    libflac-dev \
+    libvorbis-dev \
+    libopus-dev \
+    libogg-dev \
+    libadplug-dev \
+    libaudiofile-dev \
+    libsndfile1-dev \
+    libfaad-dev \
+    libfluidsynth-dev \
+    libgme-dev \
+    libmikmod-dev \
+    libmodplug-dev \
+    libmpcdec-dev \
+    libwavpack-dev \
+    libwildmidi-dev \
+    libsidplay2-dev \
+    libsidutils-dev \
+    libresid-builder-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libmp3lame-dev \
+    libtwolame-dev \
+    libshine-dev \
+    libsamplerate0-dev \
+    libsoxr-dev \
+    libbz2-dev \
+    libcdio-paranoia-dev \
+    libiso9660-dev \
+    libmms-dev \
+    libzzip-dev \
+    libcurl4-gnutls-dev \
+    libyajl-dev \
+    libexpat-dev \
+    libasound2-dev \
+    libao-dev \
+    libjack-jackd2-dev \
+    libopenal-dev \
+    libpulse-dev \
+    libshout3-dev \
+    libsndio-dev \
+    libmpdclient-dev \
+    libnfs-dev \
+    libupnp-dev \
+    libavahi-client-dev \
+    libsqlite3-dev \
+    libsystemd-dev \
+    libgtest-dev \
+    libboost-dev \
+    libicu-dev \
+    libchromaprint-dev \
+    libgcrypt20-dev \
+    git
 
 RUN mkdir /source
 WORKDIR /source
@@ -127,10 +127,11 @@ RUN apt-get -y install --no-install-recommends alsa-utils
 RUN apt-get -y install --no-install-recommends pulseaudio-utils
 RUN apt-get install -y --no-install-recommends libasound2-plugin-equal
 RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
-RUN apt-get install -y --no-install-recommends libsidplay2
-RUN apt-get install -y --no-install-recommends libsidutils0
-RUN apt-get install -y --no-install-recommends libresid-builder-dev
-RUN apt-get install -y --no-install-recommends libaudiofile-dev
+
+RUN apt-get install -y --no-install-recommends libsidplay2 \
+    libsidutils0 \
+    libresid-builder-dev \
+    libaudiofile-dev
 
 RUN rm -rf /var/lib/apt/lists/*
 

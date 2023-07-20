@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye", "bookworm"]
+        base: ["bookworm"]
 
     steps:
       - name: Checkout
@@ -50,9 +50,9 @@ jobs:
           mpd_versions[version-0.23.13]=0.23.13
 
           declare -A special_tags
-          special_tags[bullseye]="${image_name}:stable,${image_name}:latest"
-          special_tags[bookworm]="${image_name}:edge"
-          special_tags[buster]="${image_name}:legacy,${image_name}:old-stable"
+          special_tags[bullseye]="${image_name}:legacy,${image_name}:old-stable"
+          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
+          special_tags[trixie]="${image_name}:edge"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}

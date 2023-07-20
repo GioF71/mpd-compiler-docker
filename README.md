@@ -22,3 +22,11 @@ This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-d
 ## Disclaimer
 
 This is not supported by the [MPD](https://musicpd.org/) project. Use this patched version at your own risk.
+
+## Change History
+
+See the following table for changes starting from 2023-07-20.
+
+Date|Major Changes
+:---|:---
+2023-07-20|Dropped `bullseye` and `jammy` builds (see issue [#29](https://github.com/GioF71/mpd-compiler-docker/issues/29))

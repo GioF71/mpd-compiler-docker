@@ -21,6 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Prepare for docker build
+        id: prepare
         run: |
           ref_type=${{ github.ref_type }}
           echo "REF_TYPE: ["$ref_type"]"
@@ -36,23 +37,28 @@ jobs:
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
           declare -A base_image_from_matrix
+          base_image_from_matrix[sid]=debian:sid-slim
+          base_image_from_matrix[trixie]=debian:trixie-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
 
           declare -A base_tag_from_matrix
+          base_tag_from_matrix[sid]=sid-slim
+          base_tag_from_matrix[trixie]=trixie-slim
           base_tag_from_matrix[bookworm]=bookworm-slim
-          base_tag_from_matrix[buster]=buster-slim
           base_tag_from_matrix[bullseye]=bullseye-slim
+          base_tag_from_matrix[buster]=buster-slim
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.13
           mpd_versions[version-0.23.13]=0.23.13
 
           declare -A special_tags
-          special_tags[bullseye]="${image_name}:legacy,${image_name}:old-stable"
-          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
+          special_tags[sid]="${image_name}:unstable"
           special_tags[trixie]="${image_name}:edge"
+          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
+          special_tags[bullseye]="${image_name}:legacy,${image_name}:old-stable"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}
@@ -117,10 +123,10 @@ jobs:
             fi
           fi
           echo "Building tags: ["${tags}"]"
-          echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
-          echo "BASE_IMAGE=${base_image}" >> $GITHUB_ENV
-          echo "GIT_BRANCH=${git_branch}" >> $GITHUB_ENV
-          echo "LIBFMT_PACKAGE_NAME=${select_libfmt_package_name}" >> $GITHUB_ENV
+          echo "RELEASE_TAGS=${tags}" >> $GITHUB_OUTPUT
+          echo "BASE_IMAGE=${base_image}" >> $GITHUB_OUTPUT
+          echo "GIT_BRANCH=${git_branch}" >> $GITHUB_OUTPUT
+          echo "LIBFMT_PACKAGE_NAME=${select_libfmt_package_name}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -142,9 +148,8 @@ jobs:
         with:
           context: .
           build-args: |
-            BASE_IMAGE=${{ env.BASE_IMAGE }}
-            USE_GIT_BRANCH=${{ env.GIT_BRANCH }}
-            LIBFMT_PACKAGE_NAME=${{ env.LIBFMT_PACKAGE_NAME }}
+            BASE_IMAGE=${{ steps.prepare.outputs.BASE_IMAGE }}
+            USE_GIT_BRANCH=${{ steps.prepare.outputs.GIT_BRANCH }}
           platforms: linux/amd64,linux/arm/v7,linux/arm/v6,linux/arm64/v8
           push: true
-          tags: ${{ env.RELEASE_TAGS }}
+          tags: ${{ steps.prepare.outputs.RELEASE_TAGS }}

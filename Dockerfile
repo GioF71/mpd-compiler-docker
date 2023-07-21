@@ -117,22 +117,23 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     fi
 
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
-# install upstream mpd
-RUN apt-get -y install mpd
+# install upstream mpd, for dependencies
+RUN apt-get -y install mpd --no-install-recommends
 
 # libraries needed at runtime
-RUN apt-get -y install --no-install-recommends alsa-utils
-RUN apt-get -y install --no-install-recommends pulseaudio-utils
-RUN apt-get install -y --no-install-recommends libasound2-plugin-equal
-RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
+#RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
 
 RUN apt-get install -y --no-install-recommends libsidplay2 \
     libsidutils0 \
     libresid-builder-dev \
     libaudiofile-dev
 
+RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
+        rm /etc/apt/apt.conf.d/01-apt-proxy; \
+    fi
+
+RUN apt-get -y autoremove
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app/bin/compiled -p

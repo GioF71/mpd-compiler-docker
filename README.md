@@ -29,6 +29,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2023-10-10|Bump to mpd 0.23.14 (see issue [#37](https://github.com/GioF71/mpd-compiler-docker/issues/37))
 2023-08-29|Debian builds for arm/v5 instead of v6 (see issue [#34](https://github.com/GioF71/mpd-compiler-docker/issues/34))
 2023-07-21|Slim down image size, fix workflow warnings
 2023-07-20|Apt install commands optimization (see issue [#31](https://github.com/GioF71/mpd-compiler-docker/issues/31))

@@ -33,7 +33,7 @@ local_tag[bionic]=local-bionic
 DEFAULT_BASE_IMAGE=bookworm
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
-DEFAULT_GIT_VERSION=version-0.23.13
+DEFAULT_GIT_VERSION=version-0.23.14
 
 tag=""
 git_branch="$DEFAULT_GIT_VERSION"
@@ -63,11 +63,13 @@ if [ -z "${expanded_base_image}" ]; then
   exit 2
 fi
 
-select_tag=${local_tag[$base_image]}
-if [[ -n "$select_tag" ]]; then
-  tag=$select_tag
-else
-  tag=$DEFAULT_TAG
+if [[ -z "$tag" ]]; then
+  select_tag=${local_tag[$base_image]}
+  if [[ -n "$select_tag" ]]; then
+    tag=$select_tag
+  else
+    tag=$DEFAULT_TAG
+  fi
 fi
 
 if [ -z "${proxy}" ]; then

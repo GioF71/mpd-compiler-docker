@@ -1,4 +1,4 @@
-name: Publish multi-arch Docker ubuntu-based images
+name: Publish multi-arch Docker images
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["lunar"]
+        base: ["bookworm", "lunar"]
 
     steps:
       - name: Checkout
@@ -36,29 +36,29 @@ jobs:
           git_branch="version-0.23.14"
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
+          build_platforms="linux/amd64,linux/arm64/v8,linux/arm/v7"
+          if [[ ${{ matrix.base }} == "bookworm" ]]; then
+            build_platforms="${build_platforms},linux/arm/v5"
+          fi
+
           declare -A base_image_from_matrix
-          base_image_from_matrix[bionic]=ubuntu:bionic
-          base_image_from_matrix[focal]=ubuntu:focal
-          base_image_from_matrix[jammy]=ubuntu:jammy
-          base_image_from_matrix[kinetic]=ubuntu:kinetic
+          base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[lunar]=ubuntu:lunar
+          base_image_from_matrix[mantic]=ubuntu:mantic
 
           declare -A base_tag_from_matrix
-          base_tag_from_matrix[bionic]=bionic
-          base_tag_from_matrix[focal]=focal
-          base_tag_from_matrix[jammy]=jammy
-          base_tag_from_matrix[kinetic]=kinetic
+          base_tag_from_matrix[bookworm]=bookworm-slim
           base_tag_from_matrix[lunar]=lunar
+          base_tag_from_matrix[mantic]=mantic
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.14
           mpd_versions[version-0.23.14]=0.23.14
 
           declare -A special_tags
-          special_tags[bionic]="${image_name}:ubuntu-old-lts"
-          special_tags[focal]="${image_name}:ubuntu-previous-lts"
+          special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
           special_tags[jammy]="${image_name}:ubuntu-current-lts"
-          special_tags[lunar]="${image_name}:ubuntu-current"
+          special_tags[mantic]="${image_name}:ubuntu-current"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}
@@ -121,6 +121,7 @@ jobs:
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_OUTPUT
           echo "BASE_IMAGE=${base_image}" >> $GITHUB_OUTPUT
           echo "GIT_BRANCH=${git_branch}" >> $GITHUB_OUTPUT
+          echo "BUILD_PLATFORMS=${build_platforms}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -144,6 +145,6 @@ jobs:
           build-args: |
             BASE_IMAGE=${{ steps.prepare.outputs.BASE_IMAGE }}
             USE_GIT_BRANCH=${{ steps.prepare.outputs.GIT_BRANCH }}
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+          platforms: ${{ steps.prepare.outputs.BUILD_PLATFORMS }}
           push: true
           tags: ${{ steps.prepare.outputs.RELEASE_TAGS }}

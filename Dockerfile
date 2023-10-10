@@ -2,7 +2,6 @@ ARG BASE_IMAGE="${BASE_IMAGE}"
 FROM ${BASE_IMAGE} AS BASE
 
 ARG USE_APT_PROXY
-ARG LIBFMT_PACKAGE_NAME
 ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
 
 RUN mkdir -p /app/conf
@@ -100,7 +99,6 @@ ARG BASE_IMAGE="${BASE_IMAGE}"
 FROM ${BASE_IMAGE} AS INTERMEDIATE
 
 ARG USE_APT_PROXY
-ARG LIBFMT_PACKAGE_NAME
 
 RUN mkdir -p /app/conf
 
@@ -120,9 +118,6 @@ RUN apt-get update
 
 # install upstream mpd, for dependencies
 RUN apt-get -y install mpd --no-install-recommends
-
-# libraries needed at runtime
-#RUN if [ -n "$LIBFMT_PACKAGE_NAME" ]; then apt-get install -y --no-install-recommends $LIBFMT_PACKAGE_NAME; fi
 
 RUN apt-get install -y --no-install-recommends libsidplay2 \
     libsidutils0 \

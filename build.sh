@@ -91,7 +91,6 @@ fi
 
 echo "Base Image: ["$expanded_base_image"]"
 echo "Tag: ["$tag"]"
-echo "Package name libfmt: [$libfmt_package_name]"
 echo "Proxy: ["$proxy"]"
 echo "Git Branch: ["$git_branch"]"
 

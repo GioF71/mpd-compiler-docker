@@ -29,6 +29,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2023-12-22|Dropped lunar builds (see issue [#44](https://github.com/GioF71/mpd-compiler-docker/issues/44))
 2023-12-22|Bump to mpd 0.23.15 (see issue [#42](https://github.com/GioF71/mpd-compiler-docker/issues/42))
 2023-10-11|Add support for mantic (see issue [#39](https://github.com/GioF71/mpd-compiler-docker/issues/39))
 2023-10-10|Unified github workflow (see issue [#36](https://github.com/GioF71/mpd-compiler-docker/issues/36))

@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bookworm", "mantic"]
+        base: ["bookworm", "noble"]
 
     steps:
       - name: Checkout
@@ -43,13 +43,11 @@ jobs:
 
           declare -A base_image_from_matrix
           base_image_from_matrix[bookworm]=debian:bookworm-slim
-          base_image_from_matrix[lunar]=ubuntu:lunar
-          base_image_from_matrix[mantic]=ubuntu:mantic
+          base_image_from_matrix[noble]=ubuntu:noble
 
           declare -A base_tag_from_matrix
           base_tag_from_matrix[bookworm]=bookworm-slim
-          base_tag_from_matrix[lunar]=lunar
-          base_tag_from_matrix[mantic]=mantic
+          base_tag_from_matrix[noble]=noble
 
           declare -A mpd_versions
           mpd_versions[master]=0.23.15
@@ -57,8 +55,8 @@ jobs:
 
           declare -A special_tags
           special_tags[bookworm]="${image_name}:stable,${image_name}:latest"
-          special_tags[jammy]="${image_name}:ubuntu-current-lts"
-          special_tags[mantic]="${image_name}:ubuntu-current"
+          special_tags[noble]="${image_name}:ubuntu-current-lts"
+          special_tags[noble]="${image_name}:ubuntu-current"
 
           base_image=${base_image_from_matrix[${{ matrix.base }}]}
           mpd_version=${mpd_versions[${git_branch}]}

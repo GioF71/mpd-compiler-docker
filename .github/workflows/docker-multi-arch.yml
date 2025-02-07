@@ -33,7 +33,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           distro_id=${{ matrix.base }}
-          git_branch="version-0.23.16"
+          git_branch="version-0.23.17"
           image_name=${{secrets.DOCKER_USERNAME}}/mpd-compiler
 
           build_platforms="linux/amd64,linux/arm64/v8,linux/arm/v7"
@@ -50,8 +50,8 @@ jobs:
           base_tag_from_matrix[noble]=noble
 
           declare -A mpd_versions
-          mpd_versions[master]=0.23.16
-          mpd_versions[version-0.23.16]=0.23.16
+          mpd_versions[master]=0.23.17
+          mpd_versions[version-0.23.17]=0.23.17
 
           declare -A special_tags
           special_tags[bookworm]="${image_name}:stable,${image_name}:latest"

@@ -29,6 +29,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2025-02-07|Bump to mpd 0.23.17 (see issue [#50](https://github.com/GioF71/mpd-compiler-docker/issues/50))
 2024-12-27|Bump to mpd 0.23.16 (see issue [#48](https://github.com/GioF71/mpd-compiler-docker/issues/48))
 2024-06-13|Add support for noble (see issue [#46](https://github.com/GioF71/mpd-compiler-docker/issues/46))
 2023-12-22|Dropped lunar builds (see issue [#44](https://github.com/GioF71/mpd-compiler-docker/issues/44))

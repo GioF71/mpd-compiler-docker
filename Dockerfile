@@ -1,8 +1,7 @@
 ARG BASE_IMAGE="${BASE_IMAGE:-debian:bookworm-slim}"
-ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-version-0.23.17}"
-
 FROM ${BASE_IMAGE} AS base
 
+ARG USE_GIT_BRANCH=version-0.23.17
 ARG USE_APT_PROXY
 
 RUN mkdir -p /app/conf

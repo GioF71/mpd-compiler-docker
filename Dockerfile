@@ -1,8 +1,9 @@
 ARG BASE_IMAGE="${BASE_IMAGE:-debian:bookworm-slim}"
+ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-version-0.23.17}"
+
 FROM ${BASE_IMAGE} AS base
 
 ARG USE_APT_PROXY
-ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
 
 RUN mkdir -p /app/conf
 
@@ -95,7 +96,6 @@ RUN git checkout ${USE_GIT_BRANCH}-ups
 RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
-ARG BASE_IMAGE="${BASE_IMAGE}"
 FROM ${BASE_IMAGE} AS intermediate
 
 ARG USE_APT_PROXY

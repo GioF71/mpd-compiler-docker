@@ -1,5 +1,5 @@
-ARG BASE_IMAGE="${BASE_IMAGE}"
-FROM ${BASE_IMAGE} AS BASE
+ARG BASE_IMAGE="${BASE_IMAGE:-debian:bookworm-slim}"
+FROM ${BASE_IMAGE} AS base
 
 ARG USE_APT_PROXY
 ARG USE_GIT_BRANCH="${USE_GIT_BRANCH:-v0.23.x}"
@@ -96,7 +96,7 @@ RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
 ARG BASE_IMAGE="${BASE_IMAGE}"
-FROM ${BASE_IMAGE} AS INTERMEDIATE
+FROM ${BASE_IMAGE} AS intermediate
 
 ARG USE_APT_PROXY
 
@@ -133,10 +133,10 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app/bin/compiled -p
 
-COPY --from=BASE /app/bin/mpd* /app/bin/compiled/
+COPY --from=base /app/bin/mpd* /app/bin/compiled/
 
 FROM scratch
-COPY --from=INTERMEDIATE / /
+COPY --from=intermediate / /
 
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/mpd-compiler-docker"

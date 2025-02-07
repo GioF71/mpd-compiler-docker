@@ -1,22 +1,7 @@
-ARG BASE_IMAGE="${BASE_IMAGE:-debian:bookworm-slim}"
+ARG BASE_IMAGE=debian:bookworm-slim
+
 FROM ${BASE_IMAGE} AS base
-
 ARG USE_GIT_BRANCH=version-0.23.17
-ARG USE_APT_PROXY
-
-RUN mkdir -p /app/conf
-
-COPY app/conf/01-apt-proxy /app/conf/
-
-RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
-
-RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-    echo "Builind using apt proxy"; \
-    cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
-    cat /etc/apt/apt.conf.d/01-apt-proxy; \
-    else \
-    echo "Building without apt proxy"; \
-    fi
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
@@ -89,29 +74,13 @@ WORKDIR /source/MPD
 RUN meson . output/release -Ddocumentation=disabled -Dtest=false -Dsystemd=disabled -Dpcre=enabled
 RUN meson configure output/release
 RUN ninja -C output/release
-RUN mkdir /app/bin
+RUN mkdir -p /app/bin
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd
 RUN git checkout ${USE_GIT_BRANCH}-ups
 RUN ninja -C output/release
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd-ups
 
 FROM ${BASE_IMAGE} AS intermediate
-
-ARG USE_APT_PROXY
-
-RUN mkdir -p /app/conf
-
-COPY app/conf/01-apt-proxy /app/conf/
-
-RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
-
-RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-    echo "Builind using apt proxy"; \
-    cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
-    cat /etc/apt/apt.conf.d/01-apt-proxy; \
-    else \
-    echo "Building without apt proxy"; \
-    fi
 
 RUN apt-get update
 
@@ -122,10 +91,6 @@ RUN apt-get install -y --no-install-recommends libsidplay2 \
     libsidutils0 \
     libresid-builder-dev \
     libaudiofile-dev
-
-RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-        rm /etc/apt/apt.conf.d/01-apt-proxy; \
-    fi
 
 RUN apt-get -y autoremove
 RUN rm -rf /var/lib/apt/lists/*

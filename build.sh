@@ -2,7 +2,6 @@
 
 # error codes
 # 2 Invalid base image
-# 3 Invalid proxy parameter
 
 declare -A base_images
 base_images[sid]=debian:sid-slim
@@ -34,7 +33,6 @@ local_tag[bionic]=local-bionic
 
 DEFAULT_BASE_IMAGE=bookworm
 DEFAULT_TAG=local
-DEFAULT_USE_PROXY=N
 DEFAULT_GIT_VERSION=version-0.23.17
 
 tag=""
@@ -45,14 +43,12 @@ do
     case "${flag}" in
         b) base_image=${OPTARG};;
         t) tag=${OPTARG};;
-        p) proxy=${OPTARG};;
         g) git_branch=${OPTARG};;
     esac
 done
 
 echo "base_image: $base_image";
 echo "tag: $tag";
-echo "proxy: [$proxy]";
 echo "git_branch: [$git_branch]";
 
 if [ -z "${base_image}" ]; then
@@ -74,30 +70,15 @@ if [[ -z "$tag" ]]; then
   fi
 fi
 
-if [ -z "${proxy}" ]; then
-  proxy="N"
-fi
-
-if [[ "${proxy}" == "Y" || "${proxy}" == "y" ]]; then  
-  proxy="Y"
-elif [[ "${proxy}" == "N" || "${proxy}" == "n" ]]; then  
-  proxy="N"
-else
-  echo "invalid proxy parameter ["${proxy}"]"
-  exit 3
-fi
-
 if [ -z "${git_branch}" ]; then
   git_branch="${DEFAULT_GIT_VERSION}"
 fi
 
 echo "Base Image: ["$expanded_base_image"]"
 echo "Tag: ["$tag"]"
-echo "Proxy: ["$proxy"]"
 echo "Git Branch: ["$git_branch"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
-    --build-arg USE_APT_PROXY=${proxy} \
     --build-arg USE_GIT_BRANCH=${git_branch} \
     -t giof71/mpd-compiler:$tag

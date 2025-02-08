@@ -105,6 +105,7 @@ COPY --from=intermediate / /
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/mpd-compiler-docker"
 
+RUN mkdir -p /app/conf
 RUN echo "yes" > /app/conf/integer_upsampling_support.txt
 RUN echo "/app/bin/compiled/mpd" > /app/conf/mpd-compiled-path.txt
 RUN echo "/app/bin/compiled/mpd-ups" > /app/conf/mpd-compiled-ups-path.txt

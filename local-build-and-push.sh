@@ -1,8 +1,10 @@
 #!/bin/bash
 
 TODAY=$(date '+%Y-%m-%d')
+MPD_VERSION=0.23.17
 
 echo "TODAY=${TODAY}"
+
 
 # debian bookworm
 docker buildx build . \

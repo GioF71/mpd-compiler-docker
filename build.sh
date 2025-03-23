@@ -33,7 +33,7 @@ local_tag[bionic]=local-bionic
 
 DEFAULT_BASE_IMAGE=bookworm
 DEFAULT_TAG=local
-DEFAULT_GIT_VERSION=version-0.23.17
+DEFAULT_GIT_VERSION=version-0.24.1
 
 tag=""
 git_branch="$DEFAULT_GIT_VERSION"

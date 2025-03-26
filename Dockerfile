@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=debian:bookworm-slim
 
 FROM ${BASE_IMAGE} AS base
-ARG USE_GIT_BRANCH=version-0.24.1
+ARG USE_GIT_BRANCH=version-0.24.2
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y

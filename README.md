@@ -29,6 +29,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2025-04-13|Bump to mpd 0.24.3 (see issue [#58](https://github.com/GioF71/mpd-compiler-docker/issues/58))
 2025-03-27|Bump to mpd 0.24.2 (see issue [#56](https://github.com/GioF71/mpd-compiler-docker/issues/56))
 2025-03-23|Bump to mpd 0.24.1 (see issue [#54](https://github.com/GioF71/mpd-compiler-docker/issues/54))
 2025-02-07|Bump to mpd 0.23.17 (see issue [#50](https://github.com/GioF71/mpd-compiler-docker/issues/50))

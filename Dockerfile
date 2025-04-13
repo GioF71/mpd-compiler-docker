@@ -4,7 +4,6 @@ FROM ${BASE_IMAGE} AS base
 ARG USE_GIT_BRANCH=version-0.24.3
 
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 # libraries needed for building
 RUN apt-get -y install meson \

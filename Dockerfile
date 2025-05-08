@@ -4,7 +4,6 @@ FROM ${BASE_IMAGE} AS base
 ARG USE_GIT_BRANCH=version-0.24.3
 
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 # libraries needed for building
 RUN apt-get -y install meson \
@@ -71,8 +70,7 @@ RUN mkdir /source
 WORKDIR /source
 RUN git clone https://github.com/GioF71/MPD.git --branch ${USE_GIT_BRANCH}
 WORKDIR /source/MPD
-RUN meson . output/release -Ddocumentation=disabled -Dtest=false -Dsystemd=disabled -Dpcre=enabled
-RUN meson configure output/release
+RUN meson setup . output/release --buildtype=release -Db_ndebug=false
 RUN ninja -C output/release
 RUN mkdir -p /app/bin
 RUN cp /source/MPD/output/release/mpd /app/bin/mpd

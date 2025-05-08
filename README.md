@@ -29,6 +29,10 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2025-05-08|Build in release mode
+2025-05-08|Avoid apt-get upgrade
+2025-05-08|Remove non-lts ubuntu base images
+2025-05-08|Sort debian versions in build.sh
 2025-04-13|Bump to mpd 0.24.3 (see issue [#58](https://github.com/GioF71/mpd-compiler-docker/issues/58))
 2025-03-27|Bump to mpd 0.24.2 (see issue [#56](https://github.com/GioF71/mpd-compiler-docker/issues/56))
 2025-03-23|Bump to mpd 0.24.1 (see issue [#54](https://github.com/GioF71/mpd-compiler-docker/issues/54))

@@ -21,12 +21,9 @@ declare -A local_tag
 local_tag[sid]=local-sid
 local_tag[trixie]=local-trixie
 local_tag[bookworm]=local-bookworm
-local_tag[buster]=local-buster
 local_tag[bullseye]=local-bullseye
+local_tag[buster]=local-buster
 local_tag[noble]=local-noble
-local_tag[mantic]=local-mantic
-local_tag[lunar]=local-lunar
-local_tag[kinetic]=local-kinetic
 local_tag[jammy]=local-jammy
 local_tag[focal]=local-focal
 local_tag[bionic]=local-bionic

@@ -29,6 +29,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2025-05-27|Bump to mpd 0.24.4 (see issue [#61](https://github.com/GioF71/mpd-compiler-docker/issues/61))
 2025-05-08|Build in release mode
 2025-05-08|Avoid apt-get upgrade
 2025-05-08|Remove non-lts ubuntu base images

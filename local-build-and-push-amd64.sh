@@ -7,7 +7,7 @@ echo "TODAY=${TODAY}"
 
 # debian bookworm
 docker buildx build . \
-    --platform linux/arm/v5 \
+    --platform linux/amd64 \
     --build-arg BASE_IMAGE=debian:bookworm-slim \
     --tag giof71/mpd-compiler:bookworm-amd64-${MPD_VERSION}-${TODAY} \
     --tag giof71/mpd-compiler:bookworm-amd64-${MPD_VERSION} \

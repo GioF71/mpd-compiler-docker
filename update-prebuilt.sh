@@ -22,3 +22,8 @@ docker cp mpd-v8:/app/bin/compiled/mpd assets/precompiled/mpd.${MPD_VERSION}.arm
 docker cp mpd-v8:/app/bin/compiled/mpd-ups assets/precompiled/mpd.${MPD_VERSION}-ups.arm.v8
 docker cp mpd-amd64:/app/bin/compiled/mpd assets/precompiled/mpd.${MPD_VERSION}.amd64
 docker cp mpd-amd64:/app/bin/compiled/mpd-ups assets/precompiled/mpd.${MPD_VERSION}-ups.amd64
+docker stop mpd-v5 && docker rm mpd-v5
+docker stop mpd-v6 && docker rm mpd-v6
+docker stop mpd-v7 && docker rm mpd-v7
+docker stop mpd-v8 && docker rm mpd-v8
+docker stop mpd-amd64 && docker rm mpd-amd64

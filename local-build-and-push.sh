@@ -5,10 +5,9 @@ MPD_VERSION=0.24.4
 
 echo "TODAY=${TODAY}"
 
-
 # debian bookworm
 docker buildx build . \
-    --platform linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v5 \
+    --platform linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6,linux/arm/v5 \
     --build-arg BASE_IMAGE=debian:bookworm-slim \
     --tag giof71/mpd-compiler:bookworm-${MPD_VERSION}-${TODAY} \
     --tag giof71/mpd-compiler:bookworm-${MPD_VERSION} \

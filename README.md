@@ -12,6 +12,13 @@ This repo creates builds for [MPD](https://musicpd.org/).
 Source code on [GitHub](https://github.com/GioF71/mpd-compiler-docker)  
 Images on [DockerHub](https://hub.docker.com/r/giof71/mpd-compiler)
 
+## News
+
+Due to a mistake, a version with mpd 0.24.4 was never released. When I intended to release an image with version 0.24.4, a build with 0.24.3 would be contained in such images instead.  
+The issue had reflected itself on the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) images as well.  
+Now the issue is hopefully fixed with the upgrade to version 0.24.5.  
+Apologies for the inconvenience.  
+
 ## Usage
 
 Compiled binaries are available at the directory `/app/bin`. You will find that this directory include two files, `mpd` and `mpd-ups`.  
@@ -29,6 +36,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2025-10-22|Bump to mpd 0.24.6 (see issue [#69](https://github.com/GioF71/mpd-compiler-docker/issues/69))
 2025-08-03|Remove wrong reference to 0.24.3
 2025-08-02|Restore GitHub workflow
 2025-08-02|Bump to mpd 0.24.5

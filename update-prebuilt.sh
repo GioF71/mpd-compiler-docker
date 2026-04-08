@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MPD_VERSION=0.24.8
+MPD_VERSION=0.24.9
 
 docker stop mpd-v5 && docker rm mpd-v5
 docker stop mpd-v6 && docker rm mpd-v6

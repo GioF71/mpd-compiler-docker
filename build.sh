@@ -28,7 +28,7 @@ local_tag[jammy]=local-jammy
 local_tag[focal]=local-focal
 local_tag[bionic]=local-bionic
 
-DEFAULT_BASE_IMAGE=bookworm
+DEFAULT_BASE_IMAGE=trixie
 DEFAULT_TAG=local
 DEFAULT_GIT_VERSION=version-0.24.12
 

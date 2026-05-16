@@ -14,7 +14,7 @@ Images on [DockerHub](https://hub.docker.com/r/giof71/mpd-compiler)
 
 ## News
 
-Current build use version 0.24.10.  
+Current builds use version 0.24.12.  
 Due to a mistake, a version with mpd 0.24.4 was never released. When I intended to release an image with version 0.24.4, a build with 0.24.3 would be contained in such images instead.  
 The issue had reflected itself on the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) images as well.  
 Now the issue is hopefully fixed with the upgrade to version 0.24.5.  
@@ -37,6 +37,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2026-05-16|Bump to mpd 0.24.12 (see issue [#77](https://github.com/GioF71/mpd-compiler-docker/issues/77))
 2026-05-09|Bump to mpd 0.24.10 (see issue [#75](https://github.com/GioF71/mpd-compiler-docker/issues/75))
 2026-04-08|Bump to mpd 0.24.9 (see issue [#73](https://github.com/GioF71/mpd-compiler-docker/issues/73))
 2026-02-01|Bump to mpd 0.24.8 (see issue [#71](https://github.com/GioF71/mpd-compiler-docker/issues/71))

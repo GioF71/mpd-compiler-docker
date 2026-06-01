@@ -7,18 +7,15 @@ declare -A base_images
 base_images[sid]=debian:sid-slim
 base_images[trixie]=debian:trixie-slim
 base_images[bookworm]=debian:bookworm-slim
-base_images[buster]=debian:buster-slim
 base_images[bullseye]=debian:bullseye-slim
 base_images[resolute]=ubuntu:resolute
 base_images[noble]=ubuntu:noble
-base_images[lunar]=ubuntu:lunar
 
 declare -A local_tag
 local_tag[sid]=local-sid
 local_tag[trixie]=local-trixie
 local_tag[bookworm]=local-bookworm
 local_tag[bullseye]=local-bullseye
-local_tag[buster]=local-buster
 local_tag[resolute]=local-resolute
 local_tag[noble]=local-noble
 

@@ -9,13 +9,9 @@ base_images[trixie]=debian:trixie-slim
 base_images[bookworm]=debian:bookworm-slim
 base_images[buster]=debian:buster-slim
 base_images[bullseye]=debian:bullseye-slim
+base_images[resolute]=ubuntu:resolute
 base_images[noble]=ubuntu:noble
-base_images[mantic]=ubuntu:mantic
 base_images[lunar]=ubuntu:lunar
-base_images[kinetic]=ubuntu:kinetic
-base_images[jammy]=ubuntu:jammy
-base_images[focal]=ubuntu:focal
-base_images[bionic]=ubuntu:bionic
 
 declare -A local_tag
 local_tag[sid]=local-sid
@@ -23,10 +19,8 @@ local_tag[trixie]=local-trixie
 local_tag[bookworm]=local-bookworm
 local_tag[bullseye]=local-bullseye
 local_tag[buster]=local-buster
+local_tag[resolute]=local-resolute
 local_tag[noble]=local-noble
-local_tag[jammy]=local-jammy
-local_tag[focal]=local-focal
-local_tag[bionic]=local-bionic
 
 DEFAULT_BASE_IMAGE=trixie
 DEFAULT_TAG=local

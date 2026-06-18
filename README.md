@@ -32,8 +32,8 @@ This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-d
 Run the following in order to get the compiled binary in the current directory:
 
 ```text
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/compiler/mpd /output/mpd
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/compiler/mpd-ups /output/mpd-ups
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd /output/mpd
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd-ups /output/mpd-ups
 ```
 
 Dependencies will be needed in order to run the binaries. The latest images use trixie, so these binaries will (should) work on debian trixie easily.

@@ -48,6 +48,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2026-07-20|Bump to mpd 0.24.13 (see issue [#84](https://github.com/GioF71/mpd-compiler-docker/issues/84))
 2026-06-01|Bump to debian trixie
 2026-05-16|Bump to mpd 0.24.12 (see issue [#77](https://github.com/GioF71/mpd-compiler-docker/issues/77))
 2026-05-09|Bump to mpd 0.24.10 (see issue [#75](https://github.com/GioF71/mpd-compiler-docker/issues/75))

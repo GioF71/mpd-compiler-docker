@@ -21,7 +21,7 @@ local_tag[noble]=local-noble
 
 DEFAULT_BASE_IMAGE=trixie
 DEFAULT_TAG=local
-DEFAULT_GIT_VERSION=version-0.24.12
+DEFAULT_GIT_VERSION=version-0.24.13
 
 tag=""
 git_branch="$DEFAULT_GIT_VERSION"

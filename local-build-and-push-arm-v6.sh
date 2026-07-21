@@ -1,17 +1,17 @@
 #!/bin/bash
 
 TODAY=$(date '+%Y-%m-%d')
-MPD_VERSION=0.24.9
+MPD_VERSION=0.24.13
 
 echo "TODAY=${TODAY}"
 
-# debian bookworm
+# debian trixie
 docker buildx build . \
     --platform linux/arm/v6 \
-    --build-arg BASE_IMAGE=debian:bookworm-slim \
-    --tag giof71/mpd-compiler:bookworm-armv6-${MPD_VERSION}-${TODAY} \
-    --tag giof71/mpd-compiler:bookworm-armv6-${MPD_VERSION} \
-    --tag giof71/mpd-compiler:bookworm-armv6 \
+    --build-arg BASE_IMAGE=debian:trixie-slim \
+    --tag giof71/mpd-compiler:trixie-armv6-${MPD_VERSION}-${TODAY} \
+    --tag giof71/mpd-compiler:trixie-armv6-${MPD_VERSION} \
+    --tag giof71/mpd-compiler:trixie-armv6 \
     --tag giof71/mpd-compiler:latest-armv6 \
     --tag giof71/mpd-compiler:stable-armv6 \
     --load \

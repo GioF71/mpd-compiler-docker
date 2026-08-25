@@ -32,8 +32,8 @@ This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-d
 Run the following in order to copy the compiled binaries from the image in the current directory:
 
 ```text
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd /output/mpd
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd-ups /output/mpd-ups
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd /output/mpd.0.24.14
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd-ups /output/mpd.0.24.14.ups
 ```
 
 Dependencies will be needed in order to run the binaries. The latest images use trixie, so these binaries will (should) work on debian trixie easily.
@@ -48,6 +48,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2026-08-25|Bump to mpd 0.24.14 (see issue [#88](https://github.com/GioF71/mpd-compiler-docker/issues/88))
 2026-07-20|Update github actions (see issue [#86](https://github.com/GioF71/mpd-compiler-docker/issues/86))
 2026-07-20|Bump to mpd 0.24.13 (see issue [#84](https://github.com/GioF71/mpd-compiler-docker/issues/84))
 2026-06-01|Bump to debian trixie

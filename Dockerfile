@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=debian:trixie-slim
 
 FROM ${BASE_IMAGE} AS base
-ARG USE_GIT_BRANCH=version-0.24.14
+ARG USE_GIT_BRANCH=v0.24.15
 
 RUN apt-get update
 

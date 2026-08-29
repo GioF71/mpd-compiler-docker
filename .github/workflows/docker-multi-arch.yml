@@ -34,7 +34,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
           REF: ${{ github.ref }}
           DISTRO_ID: ${{ matrix.base }}
-          GIT_BRANCH: version-0.24.14
+          GIT_BRANCH: v0.24.15
           DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/mpd-compiler
         run: ./.github/scripts/prepare-docker-build.sh
 

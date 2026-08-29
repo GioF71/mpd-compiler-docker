@@ -5,7 +5,7 @@ ref_type="${REF_TYPE:-}"
 ref_name="${REF_NAME:-}"
 ref="${REF:-}"
 distro_id="${DISTRO_ID:-}"
-git_branch="${GIT_BRANCH:-version-0.24.14}"
+git_branch="${GIT_BRANCH:-v0.24.15}"
 image_name="${DOCKER_IMAGE_NAME:-}"
 
 printf 'REF_TYPE: [%s]\n' "$ref_type"
@@ -19,20 +19,20 @@ fi
 
 declare -A base_image_from_matrix
 base_image_from_matrix[trixie]=debian:trixie-slim
-base_image_from_matrix[noble]=ubuntu:noble
+base_image_from_matrix[resolute]=ubuntu:resolute
 
 declare -A base_tag_from_matrix
 base_tag_from_matrix[trixie]=trixie-slim
-base_tag_from_matrix[noble]=noble
+base_tag_from_matrix[resolute]=resolute
 
 declare -A mpd_versions
 mpd_versions[master]=0.24.14
-mpd_versions[version-0.24.14]=0.24.14
+mpd_versions[v0.24.15]=0.24.14
 
 declare -A special_tags
 special_tags[trixie]="${image_name}:stable,${image_name}:latest"
-special_tags[noble]="${image_name}:ubuntu-current-lts"
-special_tags[noble]="${image_name}:ubuntu-current"
+special_tags[resolute]="${image_name}:ubuntu-current-lts"
+special_tags[resolute]="${image_name}:ubuntu-current"
 
 base_image="${base_image_from_matrix[$distro_id]}"
 mpd_version="${mpd_versions[$git_branch]}"

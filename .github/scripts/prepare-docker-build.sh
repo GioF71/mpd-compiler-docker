@@ -26,8 +26,8 @@ base_tag_from_matrix[trixie]=trixie-slim
 base_tag_from_matrix[resolute]=resolute
 
 declare -A mpd_versions
-mpd_versions[master]=0.24.14
-mpd_versions[v0.24.15]=0.24.14
+mpd_versions[master]=0.24.15
+mpd_versions[v0.24.15]=0.24.15
 
 declare -A special_tags
 special_tags[trixie]="${image_name}:stable,${image_name}:latest"

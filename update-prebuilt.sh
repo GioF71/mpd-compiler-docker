@@ -1,14 +1,14 @@
 #!/bin/bash
 
-MPD_VERSION=0.24.15
+MPD_VERSION=0.24.16
 
 docker stop mpd-v5 && docker rm mpd-v5
 docker stop mpd-v6 && docker rm mpd-v6
 docker stop mpd-v7 && docker rm mpd-v7
 docker stop mpd-v8 && docker rm mpd-v8
 docker stop mpd-amd64 && docker rm mpd-amd64
-docker create --name mpd-v5 giof71/mpd-compiler:latest-armv5 
-docker create --name mpd-v6 giof71/mpd-compiler:latest-armv6 
+docker create --name mpd-v5 giof71/mpd-compiler:latest-armv5
+docker create --name mpd-v6 giof71/mpd-compiler:latest-armv6
 docker create --name mpd-v7 giof71/mpd-compiler:latest-armv7
 docker create --name mpd-v8 giof71/mpd-compiler:latest-armv8
 docker create --name mpd-amd64 giof71/mpd-compiler:latest-amd64

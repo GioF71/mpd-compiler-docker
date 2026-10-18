@@ -1,6 +1,6 @@
 # mpd-compiler-docker
 
-Builds mpd from source code, specifically [this fork of MPD](https://github.com/gioF71/MPD).  
+Builds mpd from source code, specifically [this fork of MPD](https://github.com/gioF71/MPD).
 Can be used as base for other container images.
 
 ## Reference
@@ -9,31 +9,31 @@ This repo creates builds for [MPD](https://musicpd.org/).
 
 ## Links
 
-Source code on [GitHub](https://github.com/GioF71/mpd-compiler-docker)  
+Source code on [GitHub](https://github.com/GioF71/mpd-compiler-docker)
 Images on [DockerHub](https://hub.docker.com/r/giof71/mpd-compiler)
 
 ## News
 
-Current builds use version 0.24.15.  
-Due to a mistake, a version with mpd 0.24.4 was never released. When I intended to release an image with version 0.24.4, a build with 0.24.3 would be contained in such images instead.  
-The issue had reflected itself on the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) images as well.  
-Now the issue is hopefully fixed with the upgrade to version 0.24.5.  
-Apologies for the inconvenience.  
+Current builds use version 0.24.16.
+Due to a mistake, a version with mpd 0.24.4 was never released. When I intended to release an image with version 0.24.4, a build with 0.24.3 would be contained in such images instead.
+The issue had reflected itself on the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) images as well.
+Now the issue is hopefully fixed with the upgrade to version 0.24.5.
+Apologies for the inconvenience.
 
 ## Usage
 
-Compiled binaries are available at the directory `/app/bin`. You will find that this directory include two files, `mpd` and `mpd-ups`.  
-The latter is a patched version, which will support a new configuration parameter named `integer_upsampling` for alsa outputs. If set to `yes` and if `allowed_formats` is set, this configuration will choose the first format which is an integer multiple of the currently playing audio file.  
-Example for `allowed_formats`: `"352800:*:* 384000:*:* *:dsd:*"`. Using this configuration, 44.1kHz will be upsampled to 352.8kHz and 48kHz will be upsampled to 384kHz.  
-This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) repo. Using that it should be easy to adopt this patched version of mpd.  
+Compiled binaries are available at the directory `/app/bin`. You will find that this directory include two files, `mpd` and `mpd-ups`.
+The latter is a patched version, which will support a new configuration parameter named `integer_upsampling` for alsa outputs. If set to `yes` and if `allowed_formats` is set, this configuration will choose the first format which is an integer multiple of the currently playing audio file.
+Example for `allowed_formats`: `"352800:*:* 384000:*:* *:dsd:*"`. Using this configuration, 44.1kHz will be upsampled to 352.8kHz and 48kHz will be upsampled to 384kHz.
+This image is used by the [mpd-alsa-docker](https://github.com/GioF71/mpd-alsa-docker) repo. Using that it should be easy to adopt this patched version of mpd.
 
 ## Download compiled binaries
 
 Run the following in order to copy the compiled binaries from the image in the current directory:
 
 ```text
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd /output/mpd.0.24.15
-docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd-ups /output/mpd.0.24.15.ups
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd /output/mpd.0.24.16
+docker run --rm --user $(id -u):$(id -g) -v "$(pwd)":/output --entrypoint cp giof71/mpd-compiler /app/bin/compiled/mpd-ups /output/mpd.0.24.16.ups
 ```
 
 Dependencies will be needed in order to run the binaries. The latest images use trixie, so these binaries will (should) work on debian trixie easily.
@@ -48,6 +48,7 @@ See the following table for changes starting from 2023-07-20.
 
 Date|Major Changes
 :---|:---
+2026-10-18|Bump to mpd 0.24.16 (see issue [#91](https://github.com/GioF71/mpd-compiler-docker/issues/91))
 2026-08-25|Bump to mpd 0.24.15 (see issue [#88](https://github.com/GioF71/mpd-compiler-docker/issues/88))
 2026-07-20|Update github actions (see issue [#86](https://github.com/GioF71/mpd-compiler-docker/issues/86))
 2026-07-20|Bump to mpd 0.24.13 (see issue [#84](https://github.com/GioF71/mpd-compiler-docker/issues/84))

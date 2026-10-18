@@ -5,7 +5,7 @@ ref_type="${REF_TYPE:-}"
 ref_name="${REF_NAME:-}"
 ref="${REF:-}"
 distro_id="${DISTRO_ID:-}"
-git_branch="${GIT_BRANCH:-v0.24.15}"
+git_branch="${GIT_BRANCH:-v0.24.16}"
 image_name="${DOCKER_IMAGE_NAME:-}"
 
 printf 'REF_TYPE: [%s]\n' "$ref_type"
@@ -26,8 +26,8 @@ base_tag_from_matrix[trixie]=trixie-slim
 base_tag_from_matrix[resolute]=resolute
 
 declare -A mpd_versions
-mpd_versions[master]=0.24.15
-mpd_versions[v0.24.15]=0.24.15
+mpd_versions[master]=0.24.16
+mpd_versions[v0.24.16]=0.24.16
 
 declare -A special_tags
 special_tags[trixie]="${image_name}:stable,${image_name}:latest"
